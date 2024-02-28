@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MONEY PROBLEM</title>
+<style>
+	form{color:black; background-color:blue; border:20px solid yellow;max-width:800px;color:white;border-radius:30px;padding-left:30px;padding-right:30px;padding-bottom:30px;font: 1.5em monospace}
+	label.title{outline:solid 7px yellow;color:black; background-color:yellow; float:left; text-align:center; width:90%;border:solid yellow 10px;font-size:1.5em;margin-bottom:5px;border-bottom-right-radius: 60px;border-bottom-left-radius: 60px;}
+	label.input{float:left; width:430px;color:black;margin-top:5px;color:white;margin-left:20px}
+	label.output1{float:left; width:130px;color:red;}
+	label.output2{float:left; width:130px}
+	div{text-align: center;}
+	br{clear:both}
+	.one,select{color:white;background-color:black; border:4px solid yellow; max-width:400px; float:left;border-radius:10px;margin-top:5px;padding:4px;font:1em monospace;}
+	.two{background-color:yellow; border:4px solid black; max-width:150px; float:left;border-radius:25px;padding:4px}
+	.one2{background-color:red;border:4px solid black;color:white;border-radius:25px;}
+	.two2{border:4px solid yellow;background:black;color:lightblue;border-radius:25px;font:1em monospace;}
+</style>
+</head>
+<body>
+	<form>
+		<label class='title'><strong>MONEY PROBLEM</strong></label><p>
+		<label class='input'><strong>Enter The Number Of 1 Dollar Bills:</strong></label>		<input id="bills" type="text" class='one' /><br>
+		<hr>
+		<label class='input'><strong>NUMBER OF PENNIES:</strong></label>	<input id="pennies" type="text" class='one' readonly/> <br>
+		<label class='input'><strong>NUMBER OF NICKELS:</strong></label>	<input id="nickels" type="text" class='one' readonly/> <br>
+		<label class='input'><strong>NUMBER OF DIMES:</strong></label>		<input id="dimes" type="text" class='one' readonly/><br>
+		<label class='input'><strong>NUMBER OF QUATERS:</strong></label>	<input id="quarters" type="text" class='one' readonly/><br>
+		<hr>
+		<div>
+			<input id="penniesBtn" type="button" value="Convert To Only Pennies" 	class='two2'/>
+			<input id="nickelsBtn" type="button" value="Convert To Only Nickels" 	class='two2'/>
+			<input id="dimesBtn" type="button" value="Convert To Only Dimes" 	class='two2'/><br>
+			<input id="quartersBtn" type="button" value="Convert To Only Quaters" 	class='two2'/>
+			<input id="allBtn" type="button" value="See All Convertions" 	class='two2'/>
+			<input id="clearBtn" type="button" value="Clear" class='two2' />
+		</div>
+	</form>
+</body>
+<script>
+
+	// inputs
+	const billsInput = document.getElementById("bills")
+	const penniesInput = document.getElementById("pennies")
+	const nickelsInput = document.getElementById("nickels")
+	const dimesInput = document.getElementById("dimes")
+	const quartersInput = document.getElementById("quarters")
+
+	// buttons
+	const penniesBtn = document.getElementById("penniesBtn")
+	const nickelsBtn = document.getElementById("nickelsBtn")
+	const dimesBtn = document.getElementById("dimesBtn")
+	const quartersBtn = document.getElementById("quartersBtn")
+	const allBtn = document.getElementById("allBtn")
+
+	// listeners
+	penniesBtn.addEventListener('click', () => convertPennies())
+	nickelsBtn.addEventListener('click', () => convertNickels())
+	dimesBtn.addEventListener('click', () => convertDimes())
+	quartersBtn.addEventListener('click', () => convertQuarters())
+	allBtn.addEventListener('click', () => convertAll())
+	clearBtn.addEventListener('click', () => {
+		billsInput.value = ""
+		penniesInput.value = ""
+		nickelsInput.value = ""
+		dimesInput.value = ""
+		quartersInput.value = ""
+	})
+
+
+	function convertPennies() {
+		const xhr = new XMLHttpRequest()
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				penniesInput.value = xhr.responseText
+			}
+		}
+		const url = `pennies?dollars=${billsInput.value}`
+		xhr.open("get", url, true)
+		xhr.send(null)
+	}
+
+	function convertNickels() {
+		const xhr = new XMLHttpRequest()
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				nickelsInput.value = xhr.responseText
+			}
+		}
+		const url = `nickels?dollars=${billsInput.value}`
+		xhr.open("get", url, true)
+		xhr.send(null)
+	}
+
+	function convertDimes() {
+		const xhr = new XMLHttpRequest()
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				dimesInput.value = xhr.responseText
+			}
+		}
+		const url = `dimes?dollars=${billsInput.value}`
+		xhr.open("get", url, true)
+		xhr.send(null)
+	}
+
+	function convertQuarters() {
+		const xhr = new XMLHttpRequest()
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				quartersInput.value = xhr.responseText
+			}
+		}
+		const url = `quarters?dollars=${billsInput.value}`
+		xhr.open("get", url, true)
+		xhr.send(null)
+	}
+
+	function convertAll() {
+		convertPennies()
+		convertNickels()
+		convertDimes()
+		convertQuarters()
+	}
+
+</script>
+</html>
